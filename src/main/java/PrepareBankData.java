@@ -18,12 +18,15 @@ public class PrepareBankData {
         }
     }
 
+    /**
+     * Add ATM to database.
+     * @param data
+     */
     public void addData(CashMachine data){
         try(PreparedStatement statementSelect = connection.prepareStatement(SELECT)){
             statementSelect.setInt(1, data.getId());
             if(!statementSelect.executeQuery().next()){
                 try(PreparedStatement statementUpdate = connection.prepareStatement(UPDATE)){
-                    
                     statementUpdate.setInt(1, data.getId());
                     statementUpdate.setDouble(2, data.getGeolocation().getLat());
                     statementUpdate.setDouble(3, data.getGeolocation().getLon());

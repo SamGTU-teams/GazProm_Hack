@@ -24,6 +24,7 @@ public class PrepareUserData {
 
     /**
      * Add user and his data.
+     * Collected data per minute sent to database.
      * @param data
      */
     public void addData(RawData data) {

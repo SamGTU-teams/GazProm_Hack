@@ -6,23 +6,42 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.function.Supplier;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 public class Launcher {
 
+    private static final Logger LOG = Logger.getLogger(Launcher.class.getName());
     public static final String URL_DB = "jdbc:postgresql://localhost:5432/gazbank";
 
     public static void main(String[] args) throws ClassNotFoundException {
-        PrepareUserData userData = new PrepareUserData(URL_DB, "postgres", "rassafel");
+
+        LOG.info("Load PrepareBankData");
         PrepareBankData bankData = new PrepareBankData(URL_DB, "postgres", "rassafel");
 
-//        readBanks().forEach(bankData::addData);
-//        generateUsers(10000000, 100).forEach(userData::addData);
+        LOG.info("Load PrepareUserData");
+        PrepareUserData userData = new PrepareUserData(URL_DB, "postgres", "rassafel");
 
+        LOG.info("Load CalculateRating");
+        CalculateRating rateData = new CalculateRating(URL_DB, "postgres", "rassafel");
 
+        LOG.info("Start PrepareBankData");
+        readBanks().forEach(bankData::addData);
+
+        LOG.info("Start PrepareUserData");
+        generateUsers(100000, 10).forEach(userData::addData);
+
+        LOG.info("Start CalculateRating");
+        rateData.updateData();
 
     }
 
+    /**
+     * Generate random users.
+     * @param countQueries
+     * @param countUsers
+     * @return
+     */
     public static Stream<RawData> generateUsers(int countQueries, final int countUsers) {
         Stream<RawData> stream = Stream.generate(new Supplier<RawData>() {
             private final int maxId = countUsers;
@@ -38,16 +57,16 @@ public class Launcher {
                         cur.curSeconds = 0;
                         cur.time = cur.time.plusMinutes(1);
                     }
-                    double dLon = Math.random() > 0.5 ? -0.001 : 0.001;
-                    double dLat = Math.random() > 0.5 ? -0.001 : 0.001;
+                    double dLon = Math.random() > 0.5 ? -0.00001 : 0.00001;
+                    double dLat = Math.random() > 0.5 ? -0.00001 : 0.00001;
                     cur.lat += dLat;
                     cur.lon += dLon;
                 } else {
                     cur = new Data();
                     cur.time = LocalDateTime.now().withSecond(0).withNano(0);
                     cur.curSeconds = 0;
-                    cur.lon = (Math.random() * 360) - 180;
-                    cur.lat = (Math.random() * 180) - 90;
+                    cur.lon = (Math.random() * 2.6) + 54.6;
+                    cur.lat = (Math.random() * 6) + 35;
                 }
                 map.put(id, cur);
                 return new RawData(id, cur.time, cur.lat, cur.lon);
@@ -63,6 +82,10 @@ public class Launcher {
         return stream.limit(countQueries);
     }
 
+    /**
+     * Parsing ATM's from https://www.gazprombank.ru/rest/hackathon/atm/.
+     * @return
+     */
     public static Stream<CashMachine> readBanks(){
         Type bankType = new TypeToken<List<CashMachine>>(){}.getType();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
