@@ -12,7 +12,6 @@ import java.io.*;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -25,7 +24,7 @@ public class Launcher {
 
     private static final Logger LOG = Logger.getLogger(Launcher.class.getName());
     public static final String URL_DB = "jdbc:postgresql://localhost:5432/gazbank";
-    public static final String PATH = "C:\\Users\\user\\Desktop\\Datas\\магазин.json";
+    public static final String PATH = "C:\\Users\\user\\Desktop\\Programs\\Projects\\GazProm_Hack\\src\\main\\resources\\Datas\\магазин.json";
     public static final String URL_BANKS = "https://www.gazprombank.ru/rest/hackathon/atm/?page=";
     public static final String USERNAME = "postgres";
     public static final String PASSWORD = "rassafel";

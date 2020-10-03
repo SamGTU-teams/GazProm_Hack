@@ -22,7 +22,8 @@ create table banks
     setlementType text,
     setlement     text,
     fullAddress   text,
-    location      text
+    location      text,
+    replaced      boolean
 );
 
 create table bankStats
@@ -47,6 +48,14 @@ create table buildings
     priority smallint
 );
 
+delete from users where true;
+delete from paths where true;
+delete from banks where true;
+delete from bankstats where true;
+delete from buildings where true;
+
+
+
 
 create or replace function calculateDistance(lat1 float, lat2 float, lon1 float, lon2 float) returns float
     language plpgsql as
@@ -62,3 +71,28 @@ begin
     return distance;
 end;
 $$;
+
+-- Creating avg statistics table of banks
+create table avg_banks_stats
+(
+    id            integer primary key,
+    all_users     integer,
+    avg_min_users double precision,
+    avg_max_users double precision
+);
+create table min_atm_used
+(
+    id          integer primary key,
+    load_factor double precision
+);
+create table middle_atm_used
+(
+    id          integer primary key,
+    load_factor double precision
+);
+create table max_atm_used
+(
+    id          integer primary key,
+    load_factor double precision
+);
+
