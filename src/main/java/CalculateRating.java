@@ -4,16 +4,16 @@ import java.util.*;
 
 public class CalculateRating {
 
-    public static final String SELECT_DATA = "select banks.bankId, paths.id, paths.timeInterval from paths, banks " +
+    public static final String SELECT_DATA = "select banks.id, paths.id, paths.timeInterval from paths, banks " +
             "where ? <= paths.timeinterval AND ? < paths.timeinterval and calculateDistance(paths.lat, banks.lat, paths.lon, banks.lon) < ?;";
 
-    public static final String SELECT_ALL_BANKS = "select bankid from banks;";
+    public static final String SELECT_ALL_BANKS = "select id from banks;";
 
-    public static final String SELECT_BANK = "select bankid from bankstats where bankid = ? AND timeinterval = ?;";
+    public static final String SELECT_BANK = "select id from bankstats where id = ? AND timeinterval = ?;";
     public static final String UPDATE = "update bankstats set (countusers,minusers,maxusers) = (?,?,?) where " +
-            "bankid = ? AND timeinterval = ?;";
+            "id = ? AND timeinterval = ?;";
 
-    public static final String INSERT = "insert into bankstats(bankid,timeinterval,countusers,minusers,maxusers) values(?, ?, ?, ?, ?);";
+    public static final String INSERT = "insert into bankstats(id,timeinterval,countusers,minusers,maxusers) values(?, ?, ?, ?, ?);";
 
     private Connection connection;
 

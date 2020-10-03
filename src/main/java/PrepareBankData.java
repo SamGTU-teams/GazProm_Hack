@@ -5,8 +5,8 @@ import java.sql.SQLException;
 
 public class PrepareBankData {
 
-    public static final String UPDATE = "insert into banks(bankid, lat, lon, region, regionType, setlementtype, setlement, fulladdress, location) values (?,?,?,?,?,?,?,?,?);";
-    public static final String SELECT = "select bankid from banks where bankid = ?;";
+    public static final String UPDATE = "insert into banks(id, lat, lon, region, regionType, setlementtype, setlement, fulladdress, location) values (?,?,?,?,?,?,?,?,?);";
+    public static final String SELECT = "select id from banks where id = ?;";
 
     private Connection connection;
 

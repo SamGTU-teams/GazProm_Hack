@@ -785,12 +785,12 @@ false Z
 false Zulu
 true posixrules
 </TimeZones>
-      <StartupTime>1601683693</StartupTime>
+      <StartupTime>1601713032</StartupTime>
     </root>
     <database id="2" parent="1" name="gazbank">
       <ObjectId>16531</ObjectId>
       <Owner>postgres</Owner>
-      <IntrospectionStateNumber>8156894</IntrospectionStateNumber>
+      <IntrospectionStateNumber>8205323</IntrospectionStateNumber>
       <Current>1</Current>
     </database>
     <database id="3" parent="1" name="postgres">
@@ -847,7 +847,7 @@ true posixrules
       <Comment>standard public schema</Comment>
       <StateNumber>276</StateNumber>
       <Owner>postgres</Owner>
-      <IntrospectionStateNumber>8156895</IntrospectionStateNumber>
+      <IntrospectionStateNumber>8205324</IntrospectionStateNumber>
       <Current>1</Current>
     </schema>
     <access-method id="16" parent="2" name="heap">
@@ -918,24 +918,24 @@ true posixrules
     <language id="26" parent="2" name="plpgsql"/>
     <language id="27" parent="2" name="sql"/>
     <table id="28" parent="15" name="banks">
-      <ObjectId>16545</ObjectId>
+      <ObjectId>32902</ObjectId>
       <Owner>postgres</Owner>
-      <StateNumber>727416</StateNumber>
+      <StateNumber>8205321</StateNumber>
     </table>
     <table id="29" parent="15" name="bankstats">
-      <ObjectId>24710</ObjectId>
+      <ObjectId>32910</ObjectId>
       <Owner>postgres</Owner>
-      <StateNumber>8156891</StateNumber>
+      <StateNumber>8205321</StateNumber>
     </table>
     <table id="30" parent="15" name="paths">
-      <ObjectId>24702</ObjectId>
+      <ObjectId>32894</ObjectId>
       <Owner>postgres</Owner>
-      <StateNumber>8156888</StateNumber>
+      <StateNumber>8205316</StateNumber>
     </table>
     <table id="31" parent="15" name="users">
-      <ObjectId>24697</ObjectId>
+      <ObjectId>32889</ObjectId>
       <Owner>postgres</Owner>
-      <StateNumber>8156888</StateNumber>
+      <StateNumber>8205316</StateNumber>
     </table>
     <routine id="32" parent="15" name="calculatedistance">
       <ObjectId>16588</ObjectId>
@@ -949,150 +949,150 @@ true posixrules
       <RoutineKind>function</RoutineKind>
       <Rows>0.0</Rows>
     </routine>
-    <column id="33" parent="28" name="bankid">
+    <column id="33" parent="28" name="id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>986</StateNumber>
+      <StateNumber>8205319</StateNumber>
       <TypeId>23</TypeId>
     </column>
     <column id="34" parent="28" name="lat">
       <Position>2</Position>
       <DataType>double precision|0s</DataType>
-      <StateNumber>986</StateNumber>
+      <StateNumber>8205319</StateNumber>
       <TypeId>701</TypeId>
     </column>
     <column id="35" parent="28" name="lon">
       <Position>3</Position>
       <DataType>double precision|0s</DataType>
-      <StateNumber>986</StateNumber>
+      <StateNumber>8205319</StateNumber>
       <TypeId>701</TypeId>
     </column>
     <column id="36" parent="28" name="region">
       <Position>4</Position>
       <DataType>text|0s</DataType>
-      <StateNumber>727416</StateNumber>
+      <StateNumber>8205319</StateNumber>
       <TypeId>25</TypeId>
     </column>
     <column id="37" parent="28" name="regiontype">
       <Position>5</Position>
       <DataType>text|0s</DataType>
-      <StateNumber>727416</StateNumber>
+      <StateNumber>8205319</StateNumber>
       <TypeId>25</TypeId>
     </column>
     <column id="38" parent="28" name="setlementtype">
       <Position>6</Position>
       <DataType>text|0s</DataType>
-      <StateNumber>727416</StateNumber>
+      <StateNumber>8205319</StateNumber>
       <TypeId>25</TypeId>
     </column>
     <column id="39" parent="28" name="setlement">
       <Position>7</Position>
       <DataType>text|0s</DataType>
-      <StateNumber>727416</StateNumber>
+      <StateNumber>8205319</StateNumber>
       <TypeId>25</TypeId>
     </column>
     <column id="40" parent="28" name="fulladdress">
       <Position>8</Position>
       <DataType>text|0s</DataType>
-      <StateNumber>727416</StateNumber>
+      <StateNumber>8205319</StateNumber>
       <TypeId>25</TypeId>
     </column>
     <column id="41" parent="28" name="location">
       <Position>9</Position>
       <DataType>text|0s</DataType>
-      <StateNumber>727416</StateNumber>
+      <StateNumber>8205319</StateNumber>
       <TypeId>25</TypeId>
     </column>
     <index id="42" parent="28" name="banks_pkey">
-      <ObjectId>16548</ObjectId>
-      <StateNumber>986</StateNumber>
-      <ColNames>bankid</ColNames>
+      <ObjectId>32908</ObjectId>
+      <StateNumber>8205319</StateNumber>
+      <ColNames>id</ColNames>
       <Unique>1</Unique>
       <Primary>1</Primary>
     </index>
     <key id="43" parent="28" name="banks_pkey">
-      <ObjectId>16549</ObjectId>
-      <StateNumber>986</StateNumber>
-      <ColNames>bankid</ColNames>
+      <ObjectId>32909</ObjectId>
+      <StateNumber>8205319</StateNumber>
+      <ColNames>id</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>banks_pkey</UnderlyingIndexName>
     </key>
-    <column id="44" parent="29" name="bankid">
+    <column id="44" parent="29" name="id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
-      <StateNumber>8156891</StateNumber>
+      <StateNumber>8205321</StateNumber>
       <TypeId>23</TypeId>
     </column>
     <column id="45" parent="29" name="timeinterval">
       <Position>2</Position>
       <DataType>timestamp|0s</DataType>
-      <StateNumber>8156891</StateNumber>
+      <StateNumber>8205321</StateNumber>
       <TypeId>1114</TypeId>
     </column>
     <column id="46" parent="29" name="countusers">
       <Position>3</Position>
       <DataType>integer|0s</DataType>
-      <StateNumber>8156891</StateNumber>
+      <StateNumber>8205321</StateNumber>
       <TypeId>23</TypeId>
     </column>
     <column id="47" parent="29" name="minusers">
       <Position>4</Position>
       <DataType>integer|0s</DataType>
-      <StateNumber>8156891</StateNumber>
+      <StateNumber>8205321</StateNumber>
       <TypeId>23</TypeId>
     </column>
     <column id="48" parent="29" name="maxusers">
       <Position>5</Position>
       <DataType>integer|0s</DataType>
-      <StateNumber>8156891</StateNumber>
+      <StateNumber>8205321</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <foreign-key id="49" parent="29" name="bankstats_bankid_fkey">
-      <ObjectId>24713</ObjectId>
-      <StateNumber>8156891</StateNumber>
-      <ColNames>bankid</ColNames>
-      <RefTableId>16545</RefTableId>
+    <foreign-key id="49" parent="29" name="bankstats_id_fkey">
+      <ObjectId>32913</ObjectId>
+      <StateNumber>8205321</StateNumber>
+      <ColNames>id</ColNames>
+      <RefTableId>32902</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>banks</RefTableName>
       <RefKeyName>banks_pkey</RefKeyName>
-      <RefColNames>bankid</RefColNames>
+      <RefColNames>id</RefColNames>
     </foreign-key>
     <column id="50" parent="30" name="id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
-      <StateNumber>8156888</StateNumber>
+      <StateNumber>8205316</StateNumber>
       <TypeId>23</TypeId>
     </column>
     <column id="51" parent="30" name="timeinterval">
       <Position>2</Position>
       <DataType>timestamp|0s</DataType>
-      <StateNumber>8156888</StateNumber>
+      <StateNumber>8205316</StateNumber>
       <TypeId>1114</TypeId>
     </column>
     <column id="52" parent="30" name="lat">
       <Position>3</Position>
       <DataType>double precision|0s</DataType>
-      <StateNumber>8156888</StateNumber>
+      <StateNumber>8205316</StateNumber>
       <TypeId>701</TypeId>
     </column>
     <column id="53" parent="30" name="lon">
       <Position>4</Position>
       <DataType>double precision|0s</DataType>
-      <StateNumber>8156888</StateNumber>
+      <StateNumber>8205316</StateNumber>
       <TypeId>701</TypeId>
     </column>
     <column id="54" parent="30" name="distance">
       <Position>5</Position>
       <DataType>double precision|0s</DataType>
-      <StateNumber>8156888</StateNumber>
+      <StateNumber>8205316</StateNumber>
       <TypeId>701</TypeId>
     </column>
     <foreign-key id="55" parent="30" name="paths_id_fkey">
-      <ObjectId>24705</ObjectId>
-      <StateNumber>8156888</StateNumber>
+      <ObjectId>32897</ObjectId>
+      <StateNumber>8205316</StateNumber>
       <ColNames>id</ColNames>
-      <RefTableId>24697</RefTableId>
+      <RefTableId>32889</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>users</RefTableName>
       <RefKeyName>users_pkey</RefKeyName>
@@ -1102,19 +1102,19 @@ true posixrules
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>8156887</StateNumber>
+      <StateNumber>8205313</StateNumber>
       <TypeId>23</TypeId>
     </column>
     <index id="57" parent="31" name="users_pkey">
-      <ObjectId>24700</ObjectId>
-      <StateNumber>8156887</StateNumber>
+      <ObjectId>32892</ObjectId>
+      <StateNumber>8205313</StateNumber>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
       <Primary>1</Primary>
     </index>
     <key id="58" parent="31" name="users_pkey">
-      <ObjectId>24701</ObjectId>
-      <StateNumber>8156887</StateNumber>
+      <ObjectId>32893</ObjectId>
+      <StateNumber>8205313</StateNumber>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>users_pkey</UnderlyingIndexName>

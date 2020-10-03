@@ -29,7 +29,7 @@ public class Launcher {
         readBanks().forEach(bankData::addData);
 
         LOG.info("Start PrepareUserData");
-        generateUsers(100000, 10).forEach(userData::addData);
+        generateUsers(1000, 2).forEach(userData::addData);
 
         LOG.info("Start CalculateRating");
         rateData.updateData();
