@@ -14,7 +14,7 @@ create table paths
 
 create table banks
 (
-    bankId        integer PRIMARY KEY,
+    id        integer PRIMARY KEY,
     lat           float,
     lon           float,
     region        text,
@@ -27,7 +27,7 @@ create table banks
 
 create table bankStats
 (
-    bankId       integer REFERENCES banks (bankId),
+    id       integer REFERENCES banks (id),
     timeInterval timestamp,
     countUsers   integer,
     minUsers     integer,
