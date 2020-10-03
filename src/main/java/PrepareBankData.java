@@ -3,26 +3,21 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class PrepareBankData {
+public class PrepareBankData extends PrepareData<CashMachine>{
 
     public static final String UPDATE = "insert into banks(id, lat, lon, region, regionType, setlementtype, setlement, fulladdress, location) values (?,?,?,?,?,?,?,?,?);";
     public static final String SELECT = "select id from banks where id = ?;";
 
-    private Connection connection;
-
     public PrepareBankData(String url, String username, String password) {
-        try {
-            connection = DriverManager.getConnection(url, username, password);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        super(url, username, password);
     }
 
     /**
      * Add ATM to database.
      * @param data
      */
-    public void addData(CashMachine data){
+    @Override
+    public boolean addData(CashMachine data){
         try(PreparedStatement statementSelect = connection.prepareStatement(SELECT)){
             statementSelect.setInt(1, data.getId());
             if(!statementSelect.executeQuery().next()){
@@ -37,11 +32,13 @@ public class PrepareBankData {
                     statementUpdate.setString(8, data.getAddress().getFullAddress());
                     statementUpdate.setString(9, data.getAddress().getLocation());
                     statementUpdate.executeUpdate();
+                    return true;
                 }
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        return false;
     }
 
 

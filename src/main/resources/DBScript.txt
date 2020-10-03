@@ -14,7 +14,7 @@ create table paths
 
 create table banks
 (
-    id        integer PRIMARY KEY,
+    id            integer PRIMARY KEY,
     lat           float,
     lon           float,
     region        text,
@@ -27,11 +27,24 @@ create table banks
 
 create table bankStats
 (
-    id       integer REFERENCES banks (id),
+    id           integer REFERENCES banks (id),
     timeInterval timestamp,
     countUsers   integer,
     minUsers     integer,
     maxUsers     integer
+);
+
+CREATE SEQUENCE building_id_seq;
+
+create table buildings
+(
+    id   integer not null default nextval('building_id_seq') PRIMARY KEY,
+    lat  float,
+    lon  float,
+    name text,
+    address text,
+    type text,
+    priority smallint
 );
 
 
@@ -42,8 +55,8 @@ declare
     distance       float;
     declare tempor double precision;
 begin
-    select pow(sin(radians(lon2 - lon1)/2), 2) * cos(radians(lat2)) * cos(radians(lat1)) +
-           pow(sin(radians(lat2 - lat1)/2), 2)
+    select pow(sin(radians(lon2 - lon1) / 2), 2) * cos(radians(lat2)) * cos(radians(lat1)) +
+           pow(sin(radians(lat2 - lat1) / 2), 2)
     into tempor;
     select 2 * atan2(sqrt(tempor), sqrt(1 - tempor)) * 6372795 into distance;
     return distance;

@@ -3,7 +3,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.*;
 
-public class PrepareUserData {
+public class PrepareUserData extends PrepareData<RawData>{
 
     private Map<Integer, Map<LocalDateTime, List<RawData>>> usersData = new HashMap<>();
     private Map<Integer, LocalDateTime> lastTime = new HashMap<>();
@@ -12,14 +12,8 @@ public class PrepareUserData {
     private static final String INSERT_USER = "insert into users (id) values (?);";
     private static final String SELECT_USER = "select id from users where id = ?";
 
-    private Connection connection;
-
     public PrepareUserData(String url, String username, String password) {
-        try {
-            connection = DriverManager.getConnection(url, username, password);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        super(url, username, password);
     }
 
     /**
@@ -27,12 +21,14 @@ public class PrepareUserData {
      * Collected data per minute sent to database.
      * @param data
      */
-    public void addData(RawData data) {
+    @Override
+    public boolean addData(RawData data) {
         if (usersData.containsKey(data.userId)) {
             Map<LocalDateTime, List<RawData>> timeMap = usersData.get(data.userId);
             if (timeMap.containsKey(data.time)) {
                 List<RawData> list = timeMap.get(data.time);
                 list.add(data);
+                return true;
             } else {
                 List<RawData> list = new LinkedList<>();
                 list.add(data);
@@ -40,6 +36,7 @@ public class PrepareUserData {
 
                 //compact and clear map
                 clearMap(data.userId);
+                return true;
             }
         } else {
             Map<LocalDateTime, List<RawData>> timeMap = new HashMap<>();
@@ -52,6 +49,7 @@ public class PrepareUserData {
             lastTime.put(data.userId, data.time);
 
             loadToDB(data.userId);
+            return true;
         }
     }
 
