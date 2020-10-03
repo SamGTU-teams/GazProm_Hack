@@ -1,12 +1,18 @@
+package LoadersToDB;
+
+import Data.UserData;
+import LoadersToDB.PrepareProcess;
+
 import java.sql.*;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.*;
 
-public class PrepareUserData extends PrepareData<RawData>{
+public class PrepareUserData extends PrepareProcess<UserData> {
 
-    private Map<Integer, Map<LocalDateTime, List<RawData>>> usersData = new HashMap<>();
-    private Map<Integer, LocalDateTime> lastTime = new HashMap<>();
+    private Map<Integer, Map<Instant, List<UserData>>> usersData = new HashMap<>();
+    private Map<Integer, Instant> lastTime = new HashMap<>();
 
     private static final String INSERT_PATH = "insert into paths(id, timeInterval, lat, lon, distance) VALUES (?, ?, ?, ?, ?);";
     private static final String INSERT_USER = "insert into users (id) values (?);";
@@ -19,28 +25,30 @@ public class PrepareUserData extends PrepareData<RawData>{
     /**
      * Add user and his data.
      * Collected data per minute sent to database.
+     *
      * @param data
      */
     @Override
-    public boolean addData(RawData data) {
+    public boolean addData(UserData data) {
+        Map<Instant, List<UserData>> timeMap;
+        List<UserData> list;
         if (usersData.containsKey(data.userId)) {
-            Map<LocalDateTime, List<RawData>> timeMap = usersData.get(data.userId);
+            timeMap = usersData.get(data.userId);
+
             if (timeMap.containsKey(data.time)) {
-                List<RawData> list = timeMap.get(data.time);
+                list = timeMap.get(data.time);
                 list.add(data);
-                return true;
             } else {
-                List<RawData> list = new LinkedList<>();
+                list = new LinkedList<>();
                 list.add(data);
                 timeMap.put(data.time, list);
 
                 //compact and clear map
                 clearMap(data.userId);
-                return true;
             }
         } else {
-            Map<LocalDateTime, List<RawData>> timeMap = new HashMap<>();
-            List<RawData> list = new LinkedList<>();
+            timeMap = new HashMap<>();
+            list = new LinkedList<>();
 
             list.add(data);
             timeMap.put(data.time, list);
@@ -49,18 +57,19 @@ public class PrepareUserData extends PrepareData<RawData>{
             lastTime.put(data.userId, data.time);
 
             loadToDB(data.userId);
-            return true;
         }
+        return true;
     }
 
     /**
      * Remove old data.
+     *
      * @param id
      */
     public void clearMap(int id, int maxSize) {
-        Map<LocalDateTime, List<RawData>> timeMap = usersData.get(id);
+        Map<Instant, List<UserData>> timeMap = usersData.get(id);
         if (timeMap.size() > maxSize) {
-            LocalDateTime lastKey = lastTime.get(id);
+            Instant lastKey = lastTime.get(id);
             ClearedData clearedData = new ClearedData(id, lastKey, timeMap.remove(lastKey));
             lastTime.put(id, timeMap.entrySet().iterator().next().getKey());
             loadToDB(clearedData);
@@ -69,6 +78,7 @@ public class PrepareUserData extends PrepareData<RawData>{
 
     /**
      * Remove old data.
+     *
      * @param id
      */
     public void clearMap(int id) {
@@ -77,6 +87,7 @@ public class PrepareUserData extends PrepareData<RawData>{
 
     /**
      * Load user into DB table users.
+     *
      * @param id
      */
     public void loadToDB(int id) {
@@ -95,12 +106,13 @@ public class PrepareUserData extends PrepareData<RawData>{
 
     /**
      * Load compressed user data to DB paths.
+     *
      * @param data
      */
     public void loadToDB(ClearedData data) {
         try (PreparedStatement statementInsert = connection.prepareStatement(INSERT_PATH)) {
             statementInsert.setInt(1, data.userId);
-            statementInsert.setTimestamp(2, Timestamp.from(data.time.toInstant(ZoneOffset.UTC)));
+            statementInsert.setTimestamp(2, Timestamp.from(data.time));
             statementInsert.setDouble(3, data.lat);
             statementInsert.setDouble(4, data.lon);
             statementInsert.setDouble(5, data.distance);
@@ -110,26 +122,26 @@ public class PrepareUserData extends PrepareData<RawData>{
         }
     }
 
-    private class ClearedData extends RawData {
-        public static final int EARTH_RADIUS = 6371;
+    private class ClearedData extends UserData {
+        public static final int EARTH_RADIUS = 6372795;
         public double distance;
 
-        public ClearedData(int userId, LocalDateTime time, List<RawData> list) {
+        public ClearedData(int userId, Instant time, List<UserData> list) {
             super(userId, time,
                     list.stream().mapToDouble(t -> t.lat).average().getAsDouble(),
                     list.stream().mapToDouble(t -> t.lon).average().getAsDouble());
             distance = calculateDistance(list);
         }
 
-        private double calculateDistance(List<RawData> list){
+        private double calculateDistance(List<UserData> list) {
             double result = 0;
             for (int i = 1; i < list.size(); i++) {
-                result += calculateDistance(list.get(i-1), list.get(i));
+                result += calculateDistance(list.get(i - 1), list.get(i));
             }
             return result;
         }
 
-        private double calculateDistance(RawData start, RawData end){
+        private double calculateDistance(UserData start, UserData end) {
             double lat1 = start.lat, lat2 = end.lat;
             double lon1 = start.lon, lon2 = end.lon;
             double difLat = Math.toRadians(lat2 - lat1);

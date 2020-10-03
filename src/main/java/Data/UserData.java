@@ -1,12 +1,14 @@
-import java.time.LocalDateTime;
+package Data;
 
-public class RawData {
+import java.time.Instant;
+
+public class UserData {
     public int userId;
-    public LocalDateTime time;
+    public Instant time;
     public double lat;
     public double lon;
 
-    public RawData(int userId, LocalDateTime time, double lat, double lon) {
+    public UserData(int userId, Instant time, double lat, double lon) {
         this.userId = userId;
         this.time = time;
         this.lat = lat;

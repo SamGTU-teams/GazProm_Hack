@@ -1,11 +1,12 @@
-import com.google.gson.Gson;
+package LoadersToDB;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
+import Data.Building;
+import LoadersToDB.PrepareProcess;
+
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class PrepareBuilding extends PrepareData<Building> {
+public class PrepareBuilding extends PrepareProcess<Building> {
 
     public static final String INSERT = "insert into buildings (lat,lon,name,address,type,priority) values(?,?,?,?,?,?);";
 

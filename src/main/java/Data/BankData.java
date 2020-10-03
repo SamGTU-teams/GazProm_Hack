@@ -1,3 +1,5 @@
+package Data;
+
 import com.google.gson.*;
 import com.google.gson.annotations.SerializedName;
 
@@ -5,25 +7,27 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class CashMachine {
+public class BankData {
     private int id;
-    private GeoLocation geolocation;
+
+    private Location geolocation;
     private Address address;
-    public CashMachine() {
+
+    public BankData() {
         //does nothing
     }
 
-    public CashMachine(int id, GeoLocation geolocation, Address address) {
+    public BankData(int id, Location geolocation, Address address) {
         this.id = id;
         this.geolocation = geolocation;
         this.address = address;
     }
 
-    public static BufferedReader getReader(String URL){
+    public static BufferedReader getReader(String URL) {
         HttpURLConnection urlConnection;
         BufferedReader reader = null;
         try {
-            urlConnection = (HttpURLConnection)new URL(URL).openConnection();
+            urlConnection = (HttpURLConnection) new URL(URL).openConnection();
             urlConnection.setConnectTimeout(5000);
             InputStream stream = urlConnection.getInputStream();
             reader = new BufferedReader(new InputStreamReader(stream));
@@ -32,6 +36,7 @@ public class CashMachine {
         }
         return reader;
     }
+
     public int getId() {
         return id;
     }
@@ -40,11 +45,11 @@ public class CashMachine {
         this.id = id;
     }
 
-    public GeoLocation getGeolocation() {
+    public Location getGeolocation() {
         return geolocation;
     }
 
-    public void setGeolocation(GeoLocation geolocation) {
+    public void setGeolocation(Location geolocation) {
         this.geolocation = geolocation;
     }
 
@@ -65,7 +70,7 @@ public class CashMachine {
                 '}';
     }
 
-    static class Address{
+    public static class Address {
         private String region;
         private String regionType;
         private String settlementType;
@@ -130,36 +135,6 @@ public class CashMachine {
                     ", settlement='" + settlement + '\'' +
                     ", fullAddress='" + fullAddress + '\'' +
                     ", location='" + location + '\'' +
-                    '}';
-        }
-    }
-    static class GeoLocation{
-        @SerializedName("latitude")
-        private double lat;
-        @SerializedName("longitude")
-        private double lon;
-
-        public double getLat() {
-            return lat;
-        }
-
-        public void setLat(double lat) {
-            this.lat = lat;
-        }
-
-        public double getLon() {
-            return lon;
-        }
-
-        public void setLon(double lon) {
-            this.lon = lon;
-        }
-
-        @Override
-        public String toString() {
-            return "GeoLocation{" +
-                    "lat=" + lat +
-                    ", lon=" + lon +
                     '}';
         }
     }

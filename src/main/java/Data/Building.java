@@ -1,3 +1,5 @@
+package Data;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.annotations.SerializedName;
@@ -11,15 +13,15 @@ public class Building {
             "метро", (short) 4,
             "образование", (short) 3);
 
-    private CashMachine.GeoLocation geoData;
+    private Location geoData;
     @SerializedName("Name")
     private String name;
     private transient String type;
     @SerializedName("Address")
     private String address;
     private transient short priority;
-    public static final transient JsonDeserializer<CashMachine.GeoLocation> geoDeser = (element, type1, context) -> {
-        CashMachine.GeoLocation result = new CashMachine.GeoLocation();
+    public static final transient JsonDeserializer<Location> geoDeser = (element, type1, context) -> {
+        Location result = new Location();
         JsonArray geos = element.getAsJsonObject().getAsJsonArray("coordinates");
         result.setLat(geos.get(1).getAsDouble());
         result.setLon(geos.get(0).getAsDouble());
@@ -30,7 +32,7 @@ public class Building {
     public Building() {
     }
 
-    public Building(CashMachine.GeoLocation geoData, String name, String type, String address) {
+    public Building(Location geoData, String name, String type, String address) {
         this.geoData = geoData;
         this.name = name;
         this.type = type;
@@ -55,11 +57,11 @@ public class Building {
         this.priority = priority;
     }
 
-    public CashMachine.GeoLocation getGeoData() {
+    public Location getGeoData() {
         return geoData;
     }
 
-    public void setGeoData(CashMachine.GeoLocation geoData) {
+    public void setGeoData(Location geoData) {
         this.geoData = geoData;
     }
 

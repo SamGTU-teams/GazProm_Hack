@@ -1,8 +1,10 @@
+package ReadAndLoadToDB;
+
 import java.sql.*;
 import java.time.Instant;
 import java.util.*;
 
-public class CalculateRating {
+public class CalculateRating extends ConnectionToDB{
 
     public static final String SELECT_DATA = "select banks.id, paths.id, paths.timeInterval from paths, banks " +
             "where ? <= paths.timeinterval AND ? < paths.timeinterval and calculateDistance(paths.lat, banks.lat, paths.lon, banks.lon) < ?;";
@@ -15,8 +17,6 @@ public class CalculateRating {
 
     public static final String INSERT = "insert into bankstats(id,timeinterval,countusers,minusers,maxusers) values(?, ?, ?, ?, ?);";
 
-    private Connection connection;
-
     /**
      * Time interval in minutes.
      */
@@ -28,11 +28,7 @@ public class CalculateRating {
     public static double distance = 50;
 
     public CalculateRating(String url, String username, String password) {
-        try {
-            connection = DriverManager.getConnection(url, username, password);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        super(url, username, password);
     }
 
     /**
