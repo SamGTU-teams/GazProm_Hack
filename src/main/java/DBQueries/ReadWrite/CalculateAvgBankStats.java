@@ -25,6 +25,7 @@ public class CalculateAvgBankStats extends ConnectionToDB {
     }
 
     public void calculateAvgBanksStats() {
+        LOG.info("Start calculate avg from bankStats and load to avg_banks_stats\n");
         try(Statement statement = connection.createStatement()){
             statement.executeUpdate(CLEAR);
         } catch (SQLException throwables) {
@@ -56,8 +57,6 @@ public class CalculateAvgBankStats extends ConnectionToDB {
                         }
                     }
                 }
-
-
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();

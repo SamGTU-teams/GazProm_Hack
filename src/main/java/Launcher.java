@@ -68,10 +68,8 @@ public class Launcher {
 
         rateData.updateData();
 
-        LOG.info("Start DBQueries.ReadWrite.CalculateAvgBankStats\n");
         avgData.calculateAvgBanksStats();
 
-        LOG.info("Start DBQueries.ReadWrite.NarrateCashMachines\n");
         narrateCashMachines.narrateCashMachines();
 
 

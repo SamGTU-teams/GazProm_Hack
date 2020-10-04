@@ -40,6 +40,7 @@ public class CalculateRating extends ConnectionToDB {
      * Rating all data.
      */
     public void updateData() {
+        LOG.info("Start calculate users and load to bankStats\n");
         try (Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery("select min(timeinterval), max(timeinterval) from paths;");
             if (resultSet.next()) {
@@ -62,7 +63,7 @@ public class CalculateRating extends ConnectionToDB {
      * @param start
      * @param end
      */
-    public void updateData(Instant start, Instant end) {
+    private void updateData(Instant start, Instant end) {
         Map<Integer, Map<Instant, List<Integer>>> map = new HashMap<>();
         try (PreparedStatement statementSelectData = connection.prepareStatement(SELECT_DATA)) {
             statementSelectData.setTimestamp(1, Timestamp.from(start));

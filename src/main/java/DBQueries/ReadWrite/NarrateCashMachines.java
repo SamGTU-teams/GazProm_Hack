@@ -28,6 +28,7 @@ public class NarrateCashMachines extends ConnectionToDB {
     }
 
     public void narrateCashMachines() {
+        LOG.info("Start calculate narrate and load to tables (min/middle/max)_atm_used\n");
         try (Statement statement = connection.createStatement()) {
             statement.executeUpdate(CLEAR_MAX);
             statement.executeUpdate(CLEAR_MIDDLE);
