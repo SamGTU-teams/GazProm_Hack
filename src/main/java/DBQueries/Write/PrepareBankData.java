@@ -1,7 +1,6 @@
-package LoadersToDB;
+package DBQueries.Write;
 
 import Data.BankData;
-import LoadersToDB.PrepareProcess;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

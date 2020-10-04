@@ -1,10 +1,12 @@
-package ReadAndLoadToDB;
+package DBQueries.ReadWrite;
+
+import DBQueries.ConnectionToDB;
 
 import java.sql.*;
 import java.time.Instant;
 import java.util.*;
 
-public class CalculateRating extends ConnectionToDB{
+public class CalculateRating extends ConnectionToDB {
 
     public static final String SELECT_DATA = "select banks.id, paths.id, paths.timeInterval from paths, banks " +
             "where ? <= paths.timeinterval AND ? < paths.timeinterval and calculateDistance(paths.lat, banks.lat, paths.lon, banks.lon) < ?;";
@@ -136,7 +138,7 @@ public class CalculateRating extends ConnectionToDB{
     }
 
     /**
-     * Load to database statistics in interval.
+     * Write to database statistics in interval.
      * @param key
      * @param time
      * @param list

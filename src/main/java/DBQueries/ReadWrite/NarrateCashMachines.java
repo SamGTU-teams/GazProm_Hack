@@ -1,4 +1,6 @@
-package ReadAndLoadToDB;
+package DBQueries.ReadWrite;
+
+import DBQueries.ConnectionToDB;
 
 import java.sql.*;
 
@@ -13,11 +15,23 @@ public class NarrateCashMachines extends ConnectionToDB {
     private static final String NARRATE_BANKS_INSERT = "insert into %s (id,load_factor) values (?,?);";
     private static final String NARRATE_BANKS_UPDATE = "update %s set load_factor = ? where id = ?;";
     private static final String NARRATE_BANKS_SELECT = "select id from %s where id = ?;";
+    private static final String CLEAR_MAX = "delete from max_atm_used where true";
+    private static final String CLEAR_MIDDLE = "delete from middle_atm_used where true";
+    private static final String CLEAR_MIN = "delete from min_atm_used where true";
 
-    private static final double MAX_LOAD = 1.3d;
-    private static final double MIN_LOAD = 0.6d;
+
+    public static double MAX_LOAD = 1.3d;
+    public static double MIN_LOAD = 0.6d;
 
     public void narrateCashMachines() {
+        try (Statement statement = connection.createStatement()) {
+            statement.executeUpdate(CLEAR_MAX);
+            statement.executeUpdate(CLEAR_MIDDLE);
+            statement.executeUpdate(CLEAR_MIN);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
         try (Statement avg_counter = connection.createStatement()) {
             ResultSet resultSet = avg_counter.executeQuery(AVG_QUERY);
             double AVG = 0;
@@ -39,16 +53,16 @@ public class NarrateCashMachines extends ConnectionToDB {
                     } else {
                         toWhichDb = "middle_atm_used";
                     }
-                    try(PreparedStatement statementSelect = connection.prepareStatement(String.format(NARRATE_BANKS_SELECT, toWhichDb))){
+                    try (PreparedStatement statementSelect = connection.prepareStatement(String.format(NARRATE_BANKS_SELECT, toWhichDb))) {
                         statementSelect.setInt(1, id);
                         ResultSet rs = statementSelect.executeQuery();
-                        if(rs.next()){
-                            try(PreparedStatement updateStatement = connection.prepareStatement(String.format(NARRATE_BANKS_UPDATE, toWhichDb))){
+                        if (rs.next()) {
+                            try (PreparedStatement updateStatement = connection.prepareStatement(String.format(NARRATE_BANKS_UPDATE, toWhichDb))) {
                                 updateStatement.setDouble(1, oneBankAvg);
                                 updateStatement.setInt(2, id);
                                 updateStatement.executeUpdate();
                             }
-                        } else{
+                        } else {
                             try (PreparedStatement insertStatement = connection.prepareStatement(String.format(NARRATE_BANKS_INSERT, toWhichDb))) {
                                 insertStatement.setInt(1, id);
                                 insertStatement.setDouble(2, oneBankAvg);

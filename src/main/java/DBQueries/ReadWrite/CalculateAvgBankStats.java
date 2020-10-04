@@ -1,4 +1,6 @@
-package ReadAndLoadToDB;
+package DBQueries.ReadWrite;
+
+import DBQueries.ConnectionToDB;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,6 +14,7 @@ public class CalculateAvgBankStats extends ConnectionToDB {
             " values (?, ?, ?, ?)";
     private static final String SELECT = "select id from avg_banks_stats where id = ?";
     private static final String UPDATE = "update avg_banks_stats set (all_users, avg_min_users, avg_max_users) = (?,?,?) where id = ?;";
+    private static final String CLEAR = "delete from avg_banks_stats where true";
 
 
     public CalculateAvgBankStats(String url, String username, String password) {
@@ -19,6 +22,12 @@ public class CalculateAvgBankStats extends ConnectionToDB {
     }
 
     public void calculateAvgBanksStats() {
+        try(Statement statement = connection.createStatement()){
+            statement.executeUpdate(CLEAR);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
         try (Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
             ResultSet resultSet = statement.executeQuery(GROUP_BY_ID);
             while (resultSet.next()) {

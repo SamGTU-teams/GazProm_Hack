@@ -1,6 +1,7 @@
-package Readers;
+package InputStreams.Readers;
 
 import Data.BankData;
+import InputStreams.StreamData;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -10,24 +11,33 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class ReaderBanks extends ReadData<BankData> {
+public class ReaderBanks extends StreamData<BankData> {
 
     public static int startPage = 1;
     public static int endPage = 57;
 
-    @Override
-    public Stream<BankData> getStream(String path) {
-        return getList(path).stream();
+    private String[] paths;
+
+    public ReaderBanks(String... path) {
+        super();
+        this.paths = path;
     }
 
-    public List<BankData> getList(String path) {
+    @Override
+    protected Stream<BankData> generateStream() {
+        return getList().stream();
+    }
+
+    public List<BankData> getList() {
         Type bankType = new TypeToken<List<BankData>>() {
         }.getType();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         List<BankData> cashMachines = new ArrayList<>();
 
-        for (int i = startPage; i <= endPage; i++) {
-            cashMachines.addAll(gson.fromJson(BankData.getReader(path + i), bankType));
+        for (String path : paths) {
+            for (int i = startPage; i <= endPage; i++) {
+                cashMachines.addAll(gson.fromJson(BankData.getReader(path + i), bankType));
+            }
         }
         return cashMachines;
     }

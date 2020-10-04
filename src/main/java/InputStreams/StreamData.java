@@ -1,16 +1,20 @@
 package InputStreams;
 
-import java.time.Instant;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 public abstract class StreamData<T> {
-    public abstract Stream<T> getStream(int id, final Instant start, final Instant end);
 
-    public Stream<T> getStream(int[] id, final Instant start, final Instant end){
-        Stream<T> result = Stream.empty();
-        for (int i: id) {
-            result = Stream.concat(result, getStream(i, start, end));
-        }
-        return result;
+    protected Logger LOG = Logger.getLogger(getClass().getName());
+
+    protected StreamData() {
+        LOG.info("Init " + getClass().getSimpleName() + '\n');
     }
+
+    public Stream<T> getStream(){
+        LOG.info("Start create data\n");
+        return generateStream();
+    }
+
+    protected abstract Stream<T> generateStream();
 }

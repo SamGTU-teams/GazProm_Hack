@@ -1,8 +1,5 @@
 package Data;
 
-import com.google.gson.*;
-import com.google.gson.annotations.SerializedName;
-
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;

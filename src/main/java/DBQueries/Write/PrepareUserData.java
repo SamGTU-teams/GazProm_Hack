@@ -1,12 +1,9 @@
-package LoadersToDB;
+package DBQueries.Write;
 
 import Data.UserData;
-import LoadersToDB.PrepareProcess;
 
 import java.sql.*;
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.util.*;
 
 public class PrepareUserData extends PrepareProcess<UserData> {
@@ -86,7 +83,7 @@ public class PrepareUserData extends PrepareProcess<UserData> {
     }
 
     /**
-     * Load user into DB table users.
+     * Write user into DB table users.
      *
      * @param id
      */
@@ -105,7 +102,7 @@ public class PrepareUserData extends PrepareProcess<UserData> {
     }
 
     /**
-     * Load compressed user data to DB paths.
+     * Write compressed user data to DB paths.
      *
      * @param data
      */

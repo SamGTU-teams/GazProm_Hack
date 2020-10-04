@@ -1,4 +1,4 @@
-package LoadersToDB;
+package DBQueries.Write;
 
 import Data.BankStatistics;
 
