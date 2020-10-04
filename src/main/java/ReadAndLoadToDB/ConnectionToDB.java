@@ -1,10 +1,11 @@
 package ReadAndLoadToDB;
 
+import java.io.Closeable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public abstract class ConnectionToDB {
+public abstract class ConnectionToDB implements AutoCloseable {
 
     protected Connection connection;
 
@@ -14,5 +15,10 @@ public abstract class ConnectionToDB {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void close() throws Exception {
+        connection.close();
     }
 }

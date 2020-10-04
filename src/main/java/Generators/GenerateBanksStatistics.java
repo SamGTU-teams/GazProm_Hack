@@ -11,7 +11,7 @@ public class GenerateBanksStatistics extends StreamData<BankStatistics> {
 
     public static int interval = 12;
 
-    public static int MAX_USERS = 10;
+    public static int MAX_USERS = 20;
     public static int MIN_USERS = 0;
 
     @Override

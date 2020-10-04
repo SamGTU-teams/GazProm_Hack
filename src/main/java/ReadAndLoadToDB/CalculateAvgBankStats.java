@@ -7,9 +7,12 @@ import java.sql.Statement;
 
 public class CalculateAvgBankStats extends ConnectionToDB {
 
-    public static final String GROUP_BY_ID = "select id, sum(countusers), avg(minusers), avg(maxusers) from bankstats group by id";
-    public static final String INSERT_AVG_STATS = "insert into avg_banks_stats(id, all_users, avg_min_users, avg_max_users)" +
+    private static final String GROUP_BY_ID = "select id, sum(countusers), avg(minusers), avg(maxusers) from bankstats group by id";
+    private static final String INSERT_AVG_STATS = "insert into avg_banks_stats(id, all_users, avg_min_users, avg_max_users)" +
             " values (?, ?, ?, ?)";
+    private static final String SELECT = "select id from avg_banks_stats where id = ?";
+    private static final String UPDATE = "update avg_banks_stats set (all_users, avg_min_users, avg_max_users) = (?,?,?) where id = ?;";
+
 
     public CalculateAvgBankStats(String url, String username, String password) {
         super(url, username, password);
@@ -19,13 +22,30 @@ public class CalculateAvgBankStats extends ConnectionToDB {
         try (Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
             ResultSet resultSet = statement.executeQuery(GROUP_BY_ID);
             while (resultSet.next()) {
-                try (PreparedStatement insertState = connection.prepareStatement(INSERT_AVG_STATS)) {
-                    insertState.setInt(1, resultSet.getInt(1));
-                    insertState.setInt(2, resultSet.getInt(2));
-                    insertState.setDouble(3, resultSet.getDouble(3));
-                    insertState.setDouble(4, resultSet.getDouble(4));
-                    insertState.executeUpdate();
+                int id = resultSet.getInt(1);
+                try (PreparedStatement statementSelect = connection.prepareStatement(SELECT)) {
+                    statementSelect.setInt(1, id);
+                    ResultSet rs = statementSelect.executeQuery();
+                    if (rs.next()) {
+                        try(PreparedStatement statementUpdate = connection.prepareStatement(UPDATE)){
+                            statementUpdate.setInt(1, resultSet.getInt(2));
+                            statementUpdate.setDouble(2, resultSet.getDouble(3));
+                            statementUpdate.setDouble(3, resultSet.getDouble(4));
+                            statementUpdate.setInt(4, id);
+                            statementUpdate.executeUpdate();
+                        }
+                    } else {
+                        try (PreparedStatement statementInsert = connection.prepareStatement(INSERT_AVG_STATS)) {
+                            statementInsert.setInt(1, id);
+                            statementInsert.setInt(2, resultSet.getInt(2));
+                            statementInsert.setDouble(3, resultSet.getDouble(3));
+                            statementInsert.setDouble(4, resultSet.getDouble(4));
+                            statementInsert.executeUpdate();
+                        }
+                    }
                 }
+
+
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();

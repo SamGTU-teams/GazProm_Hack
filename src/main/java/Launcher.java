@@ -4,6 +4,8 @@ import InputStreams.StreamData;
 import LoadersToDB.*;
 import ReadAndLoadToDB.CalculateAvgBankStats;
 import ReadAndLoadToDB.CalculateRating;
+import ReadAndLoadToDB.NarrateCashMachines;
+import ReadFromDB.GetIntegers;
 import Readers.*;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
@@ -68,6 +70,12 @@ public class Launcher {
         LOG.info("Init class ReadAndLoadToDB.CalculateAvgBankStats\n");
         CalculateAvgBankStats avgData = new CalculateAvgBankStats(URL_DB, USERNAME, PASSWORD);
 
+        LOG.info("Init class ReadAndLoadToDB.NarrateCashMachines\n");
+        NarrateCashMachines narrateCashMachines = new NarrateCashMachines(URL_DB, USERNAME, PASSWORD);
+
+        LOG.info("Init class ReadFromDB.GetIntegerList\n");
+        GetIntegers select = new GetIntegers(URL_DB, USERNAME, PASSWORD);
+
 
 //        LOG.info("Start create and load user\n");
 //        userData.addAllData(users.getStream(1, startTime, endTime));
@@ -79,13 +87,16 @@ public class Launcher {
 //        buildingData.addAllData(buildings.getStream(PATH));
 
 //        LOG.info("Start create and load bankstats\n");
-//        bankStatistics.addAllData(statistics.getStream(324394, startTime, endTime));
+//        bankStatistics.addAllData(statistics.getStream(select.getArray(), startTime, endTime));
 
 //        LOG.info("Start CalculateRating\n");
 //        rateData.updateData();
 
-//        LOG.info("Start CalculateAvgBankStats\n");
-//        avgData.calculateAvgBanksStats();
+        LOG.info("Start CalculateAvgBankStats\n");
+        avgData.calculateAvgBanksStats();
+
+        LOG.info("Start NarrateCashMachines\n");
+        narrateCashMachines.narrateCashMachines();
 
 
 
