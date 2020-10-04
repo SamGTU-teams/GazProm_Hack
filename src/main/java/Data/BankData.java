@@ -1,10 +1,16 @@
 package Data;
 
+import InputStreams.Generators.GenerateBanksStatistics;
+
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.logging.Logger;
 
 public class BankData {
+
+    private static final Logger LOG = Logger.getLogger(BankData.class.getName());
+
     private int id;
 
     private Location geolocation;

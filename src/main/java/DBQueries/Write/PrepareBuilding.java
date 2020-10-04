@@ -4,10 +4,13 @@ import Data.Building;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.logging.Logger;
 
 public class PrepareBuilding extends PrepareProcess<Building> {
 
-    public static final String INSERT = "insert into buildings (lat,lon,name,address,type,priority) values(?,?,?,?,?,?);";
+    private static final Logger LOG = Logger.getLogger(PrepareBuilding.class.getName());
+
+    private static final String INSERT = "insert into buildings (lat,lon,name,address,type,priority) values(?,?,?,?,?,?);";
 
     public PrepareBuilding(String url, String username, String password) {
         super(url, username, password);

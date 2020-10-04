@@ -1,14 +1,14 @@
 package DBQueries.ReadWrite;
 
 import DBQueries.ConnectionToDB;
+import DBQueries.Write.PrepareBankData;
 
 import java.sql.*;
+import java.util.logging.Logger;
 
 public class NarrateCashMachines extends ConnectionToDB {
 
-    public NarrateCashMachines(String url, String username, String password) {
-        super(url, username, password);
-    }
+    private static final Logger LOG = Logger.getLogger(NarrateCashMachines.class.getName());
 
     private static final String AVG_QUERY = "select sum(avg_min_users), sum(avg_max_users), count(id) from avg_banks_stats;";
     private static final String COUNT_AVG_BANK = "select id, avg_min_users, avg_max_users from avg_banks_stats;";
@@ -22,6 +22,10 @@ public class NarrateCashMachines extends ConnectionToDB {
 
     public static double MAX_LOAD = 1.3d;
     public static double MIN_LOAD = 0.6d;
+
+    public NarrateCashMachines(String url, String username, String password) {
+        super(url, username, password);
+    }
 
     public void narrateCashMachines() {
         try (Statement statement = connection.createStatement()) {

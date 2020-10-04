@@ -5,7 +5,7 @@ import java.util.stream.Stream;
 
 public abstract class StreamData<T> {
 
-    protected Logger LOG = Logger.getLogger(getClass().getName());
+    private static final Logger LOG = Logger.getLogger(StreamData.class.getName());
 
     protected StreamData() {
         LOG.info("Init " + getClass().getSimpleName() + '\n');

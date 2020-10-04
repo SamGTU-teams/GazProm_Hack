@@ -6,8 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Logger;
 
 public class CalculateAvgBankStats extends ConnectionToDB {
+
+    private static final Logger LOG = Logger.getLogger(CalculateAvgBankStats.class.getName());
 
     private static final String GROUP_BY_ID = "select id, sum(countusers), avg(minusers), avg(maxusers) from bankstats group by id";
     private static final String INSERT_AVG_STATS = "insert into avg_banks_stats(id, all_users, avg_min_users, avg_max_users)" +

@@ -1,8 +1,12 @@
 package Data;
 
 import java.time.Instant;
+import java.util.logging.Logger;
 
 public class UserData {
+
+    private static final Logger LOG = Logger.getLogger(UserData.class.getName());
+
     public int userId;
     public Instant time;
     public double lat;

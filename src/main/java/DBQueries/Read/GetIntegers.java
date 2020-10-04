@@ -1,12 +1,16 @@
 package DBQueries.Read;
 
 import DBQueries.ConnectionToDB;
+import DBQueries.ReadWrite.CalculateAvgBankStats;
 
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class GetIntegers extends ConnectionToDB {
+
+    private static final Logger LOG = Logger.getLogger(GetIntegers.class.getName());
 
     private String select = "select %s from %s;";
 

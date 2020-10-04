@@ -1,8 +1,12 @@
 package Data;
 
 import java.time.Instant;
+import java.util.logging.Logger;
 
 public class BankStatistics {
+
+    private static final Logger LOG = Logger.getLogger(BankStatistics.class.getName());
+
     public int id;
     public Instant time;
     public int countUsers;

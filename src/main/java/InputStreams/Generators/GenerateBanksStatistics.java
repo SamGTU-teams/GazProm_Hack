@@ -1,14 +1,16 @@
 package InputStreams.Generators;
 
 import Data.BankStatistics;
-import Data.UserData;
 import InputStreams.StreamData;
 
 import java.time.Instant;
 import java.util.*;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 public class GenerateBanksStatistics extends StreamData<BankStatistics> {
+
+    private static final Logger LOG = Logger.getLogger(GenerateBanksStatistics.class.getName());
 
     public static int interval = 12;
 

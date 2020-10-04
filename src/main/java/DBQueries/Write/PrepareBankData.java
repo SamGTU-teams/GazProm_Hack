@@ -4,12 +4,15 @@ import Data.BankData;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.logging.Logger;
 
 public class PrepareBankData extends PrepareProcess<BankData> {
 
-    public static final String UPDATE = "insert into banks(id, lat, lon, region, regionType, setlementtype, setlement," +
+    private static final Logger LOG = Logger.getLogger(PrepareBankData.class.getName());
+
+    private static final String UPDATE = "insert into banks(id, lat, lon, region, regionType, setlementtype, setlement," +
             " fulladdress, location, replaced) values (?,?,?,?,?,?,?,?,?,?);";
-    public static final String SELECT = "select id from banks where id = ?;";
+    private static final String SELECT = "select id from banks where id = ?;";
 
     public PrepareBankData(String url, String username, String password) {
         super(url, username, password);

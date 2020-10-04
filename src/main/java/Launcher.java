@@ -6,16 +6,20 @@ import DBQueries.ReadWrite.*;
 import DBQueries.Read.GetIntegers;
 import InputStreams.Readers.*;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.Arrays;
 import java.util.logging.Logger;
 
 public class Launcher {
 
     private static final Logger LOG = Logger.getLogger(Launcher.class.getName());
     public static final String URL_DB = "jdbc:postgresql://localhost:5432/gazbank";
-    public static final String PATH = "C:\\Users\\user\\Desktop\\Programs\\Projects\\GazProm_Hack\\src\\main\\resources\\Datas\\магазин.json";
+    public static final String PATH = "src\\main\\resources\\Datas";
     public static final String URL_BANKS = "https://www.gazprombank.ru/rest/hackathon/atm/?page=";
     public static final String USERNAME = "postgres";
     public static final String PASSWORD = "rassafel";
@@ -29,7 +33,6 @@ public class Launcher {
         LOG.info("\nstartTime = " + startTime + "\nendTime = " + endTime + '\n');
 
 
-
         GetIntegers select = new GetIntegers(URL_DB, USERNAME, PASSWORD, "id", "banks");
 
         StreamData<UserData> users = new GenerateUserData(startTime, endTime, 1);
@@ -38,7 +41,7 @@ public class Launcher {
 
         StreamData<BankData> banks = new ReaderBanks(URL_BANKS);
 
-        StreamData<Building> buildings = new ReaderBuildings(PATH);
+        StreamData<Building> buildings = new ReaderBuildings(filesList());
 
         PrepareProcess<BankData> bankData = new PrepareBankData(URL_DB, USERNAME, PASSWORD);
 
@@ -53,7 +56,6 @@ public class Launcher {
         CalculateAvgBankStats avgData = new CalculateAvgBankStats(URL_DB, USERNAME, PASSWORD);
 
         NarrateCashMachines narrateCashMachines = new NarrateCashMachines(URL_DB, USERNAME, PASSWORD);
-
 
 
         userData.addAllData(users);
@@ -74,5 +76,9 @@ public class Launcher {
 
 
         LOG.info("Completed successfully");
+    }
+
+    private static String[] filesList(){
+        return Arrays.stream(new File(PATH).listFiles()).map(File::getAbsolutePath).toArray(String[]::new);
     }
 }

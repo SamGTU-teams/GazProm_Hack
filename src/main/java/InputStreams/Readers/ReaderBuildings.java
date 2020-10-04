@@ -14,9 +14,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 public class ReaderBuildings extends StreamData<Building> {
+
+    private static final Logger LOG = Logger.getLogger(ReaderBuildings.class.getName());
 
     private String[] paths;
 

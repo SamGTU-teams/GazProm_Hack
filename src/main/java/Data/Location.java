@@ -3,13 +3,12 @@ package Data;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.util.logging.Logger;
 
 public class Location {
+
+    private static final transient Logger LOG = Logger.getLogger(Location.class.getName());
+
     @SerializedName("latitude")
     private double lat;
     @SerializedName("longitude")

@@ -5,29 +5,32 @@ import DBQueries.ConnectionToDB;
 import java.sql.*;
 import java.time.Instant;
 import java.util.*;
+import java.util.logging.Logger;
 
 public class CalculateRating extends ConnectionToDB {
 
-    public static final String SELECT_DATA = "select banks.id, paths.id, paths.timeInterval from paths, banks " +
+    private static final Logger LOG = Logger.getLogger(CalculateRating.class.getName());
+
+    private static final String SELECT_DATA = "select banks.id, paths.id, paths.timeInterval from paths, banks " +
             "where ? <= paths.timeinterval AND ? < paths.timeinterval and calculateDistance(paths.lat, banks.lat, paths.lon, banks.lon) < ?;";
 
-    public static final String SELECT_ALL_BANKS = "select id from banks;";
+    private static final String SELECT_ALL_BANKS = "select id from banks;";
 
-    public static final String SELECT_BANK = "select id from bankstats where id = ? AND timeinterval = ?;";
-    public static final String UPDATE = "update bankstats set (countusers,minusers,maxusers) = (?,?,?) where " +
+    private static final String SELECT_BANK = "select id from bankstats where id = ? AND timeinterval = ?;";
+    private static final String UPDATE = "update bankstats set (countusers,minusers,maxusers) = (?,?,?) where " +
             "id = ? AND timeinterval = ?;";
 
-    public static final String INSERT = "insert into bankstats(id,timeinterval,countusers,minusers,maxusers) values(?, ?, ?, ?, ?);";
+    private static final String INSERT = "insert into bankstats(id,timeinterval,countusers,minusers,maxusers) values(?, ?, ?, ?, ?);";
 
     /**
      * Time interval in minutes.
      */
-    public static int interval = 12;
+    private static int interval = 12;
 
     /**
      * ATM search radius.
      */
-    public static double distance = 50;
+    private static double distance = 50;
 
     public CalculateRating(String url, String username, String password) {
         super(url, username, password);

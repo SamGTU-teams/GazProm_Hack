@@ -1,5 +1,6 @@
 package InputStreams.Readers;
 
+import DBQueries.Read.GetIntegers;
 import Data.BankData;
 import InputStreams.StreamData;
 import com.google.gson.Gson;
@@ -9,9 +10,12 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 public class ReaderBanks extends StreamData<BankData> {
+
+    private static final Logger LOG = Logger.getLogger(ReaderBanks.class.getName());
 
     public static int startPage = 1;
     public static int endPage = 57;

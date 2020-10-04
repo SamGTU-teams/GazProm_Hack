@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 
 public abstract class ConnectionToDB implements AutoCloseable {
 
-    protected Logger LOG = Logger.getLogger(getClass().getName());
+    private static final Logger LOG = Logger.getLogger(ConnectionToDB.class.getName());
 
     protected Connection connection;
 

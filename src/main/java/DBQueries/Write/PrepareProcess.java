@@ -3,9 +3,12 @@ package DBQueries.Write;
 import InputStreams.StreamData;
 import DBQueries.ConnectionToDB;
 
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 public abstract class PrepareProcess<T> extends ConnectionToDB {
+
+    private static final Logger LOG = Logger.getLogger(PrepareProcess.class.getName());
 
     protected PrepareProcess(String url, String username, String password) {
         super(url, username, password);

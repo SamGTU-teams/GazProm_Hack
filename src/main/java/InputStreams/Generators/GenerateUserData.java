@@ -2,15 +2,19 @@ package InputStreams.Generators;
 
 import Data.Location;
 import Data.UserData;
+import InputStreams.Readers.ReaderBanks;
 import InputStreams.StreamData;
 
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 public class GenerateUserData extends StreamData<UserData> {
+
+    private static final Logger LOG = Logger.getLogger(GenerateUserData.class.getName());
 
     public static Location MAX = new Location(57.2, 41);
     public static Location MIN = new Location(54.6, 35);

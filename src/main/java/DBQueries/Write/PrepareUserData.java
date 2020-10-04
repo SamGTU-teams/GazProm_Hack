@@ -1,12 +1,16 @@
 package DBQueries.Write;
 
+import DBQueries.ConnectionToDB;
 import Data.UserData;
 
 import java.sql.*;
 import java.time.Instant;
 import java.util.*;
+import java.util.logging.Logger;
 
 public class PrepareUserData extends PrepareProcess<UserData> {
+
+    private static final Logger LOG = Logger.getLogger(PrepareUserData.class.getName());
 
     private Map<Integer, Map<Instant, List<UserData>>> usersData = new HashMap<>();
     private Map<Integer, Instant> lastTime = new HashMap<>();

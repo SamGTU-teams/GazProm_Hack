@@ -5,10 +5,13 @@ import Data.BankStatistics;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.logging.Logger;
 
 public class PrepareBankStatistics extends PrepareProcess<BankStatistics> {
 
-    public static final String INSERT = "insert into bankstats(id,timeinterval,countusers,minusers,maxusers) values(?, ?, ?, ?, ?);";
+    private static final Logger LOG = Logger.getLogger(PrepareBankStatistics.class.getName());
+
+    private static final String INSERT = "insert into bankstats(id,timeinterval,countusers,minusers,maxusers) values(?, ?, ?, ?, ?);";
 
     public PrepareBankStatistics(String url, String username, String password) {
         super(url, username, password);

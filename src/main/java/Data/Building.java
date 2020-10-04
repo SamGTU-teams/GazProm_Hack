@@ -6,8 +6,12 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Map;
 import java.util.StringJoiner;
+import java.util.logging.Logger;
 
 public class Building {
+
+    private static final transient Logger LOG = Logger.getLogger(Building.class.getName());
+
     public static final transient Map<String, Short> PRIORITY_MAP = Map.of(
             "магазин", (short) 5,
             "метро", (short) 4,
