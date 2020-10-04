@@ -56,21 +56,21 @@ public class Launcher {
 
 
 
-//        userData.addAllData(users);
+        userData.addAllData(users);
 
-//        bankData.addAllData(banks);
+        bankData.addAllData(banks);
 
-//        buildingData.addAllData(buildings);
+        buildingData.addAllData(buildings);
 
-//        bankStatistics.addAllData(statistics);
+        bankStatistics.addAllData(statistics);
 
-//        rateData.updateData();
+        rateData.updateData();
 
-//        LOG.info("Start DBQueries.ReadWrite.CalculateAvgBankStats\n");
-//        avgData.calculateAvgBanksStats();
-//
-//        LOG.info("Start DBQueries.ReadWrite.NarrateCashMachines\n");
-//        narrateCashMachines.narrateCashMachines();
+        LOG.info("Start DBQueries.ReadWrite.CalculateAvgBankStats\n");
+        avgData.calculateAvgBanksStats();
+
+        LOG.info("Start DBQueries.ReadWrite.NarrateCashMachines\n");
+        narrateCashMachines.narrateCashMachines();
 
 
         LOG.info("Completed successfully");
