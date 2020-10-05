@@ -2,7 +2,7 @@ package DataStreams.Generators;
 
 import Data.Location;
 import Data.UserData;
-import DataStreams.AbstractDataStream;
+import DataStreams.DataStream;
 
 import java.time.Instant;
 import java.util.Arrays;
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 
-public class GenerateUserData extends AbstractDataStream<UserData> {
+public class GenerateUserData implements DataStream<UserData> {
 
     private static final Logger LOG = Logger.getLogger(GenerateUserData.class.getName());
 
@@ -27,7 +27,7 @@ public class GenerateUserData extends AbstractDataStream<UserData> {
     private UserData[] last;
 
     public GenerateUserData(Instant start, Instant end, int... id) {
-        super();
+        LOG.info("Init " + getClass().getSimpleName() + '\n');
         this.ids = id;
         this.start = start;
         this.end = end;

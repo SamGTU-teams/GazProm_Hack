@@ -1,14 +1,14 @@
 package DBQueries.Read;
 
 import DBQueries.ConnectionToDB;
-import DBQueries.ReadWrite.CalculateAvgBankStats;
 
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Stream;
 
-public class GetIntegers extends ConnectionToDB {
+public class GetIntegers extends ReadProcessToDB<Integer> {
 
     private static final Logger LOG = Logger.getLogger(GetIntegers.class.getName());
 
@@ -22,6 +22,11 @@ public class GetIntegers extends ConnectionToDB {
     @Override
     protected Logger log() {
         return LOG;
+    }
+
+    @Override
+    public Stream<Integer> generateStream() {
+        return getList().stream();
     }
 
     public List<Integer> getList() {

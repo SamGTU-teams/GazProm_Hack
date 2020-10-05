@@ -1,7 +1,6 @@
 package DataStreams.PrepareData;
 
 import Data.UserData;
-import DataStreams.AbstractDataStream;
 import DataStreams.PrepareDataStream;
 
 import java.time.Instant;
@@ -9,13 +8,23 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 public class PrepareUserData implements PrepareDataStream<UserData> {
 
-    private Map<Integer, Map<Instant, List<UserData>>> usersData = new HashMap<>();
-    private Map<Integer, Instant> lastTime = new HashMap<>();
-    private List<UserData> result = new LinkedList<>();
+    private static final Logger LOG = Logger.getLogger(PrepareUserData.class.getName());
+
+    private Map<Integer, Map<Instant, List<UserData>>> usersData;
+    private Map<Integer, Instant> lastTime;
+    private List<UserData> result;
+
+    public PrepareUserData() {
+        LOG.info("Init " + getClass().getSimpleName() + '\n');
+        usersData = new HashMap<>();
+        lastTime = new HashMap<>();
+        result = new LinkedList<>();
+    }
 
     @Override
     public Stream<UserData> generateStream() {

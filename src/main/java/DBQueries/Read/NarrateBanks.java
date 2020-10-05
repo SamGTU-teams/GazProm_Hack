@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 
-public class NarrateBanks extends ConnectionToDB implements DataStream<NarrateData> {
+public class NarrateBanks extends ReadProcessToDB<NarrateData> {
 
     private static final Logger LOG = Logger.getLogger(NarrateBanks.class.getName());
 

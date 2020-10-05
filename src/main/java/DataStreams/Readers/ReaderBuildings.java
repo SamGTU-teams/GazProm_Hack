@@ -2,7 +2,7 @@ package DataStreams.Readers;
 
 import Data.Building;
 import Data.Location;
-import DataStreams.AbstractDataStream;
+import DataStreams.DataStream;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -17,14 +17,14 @@ import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 
-public class ReaderBuildings extends AbstractDataStream<Building> {
+public class ReaderBuildings implements DataStream<Building> {
 
     private static final Logger LOG = Logger.getLogger(ReaderBuildings.class.getName());
 
     private String[] paths;
 
     public ReaderBuildings(String... path) {
-        super();
+        LOG.info("Init " + getClass().getSimpleName() + '\n');
         this.paths = path;
     }
 

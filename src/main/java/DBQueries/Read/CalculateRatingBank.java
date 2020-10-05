@@ -10,7 +10,7 @@ import java.util.*;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 
-public class CalculateRatingBank extends ConnectionToDB implements DataStream<BankStatisticsInInterval> {
+public class CalculateRatingBank extends ReadProcessToDB<BankStatisticsInInterval> {
 
     private static final Logger LOG = Logger.getLogger(CalculateRatingBank.class.getName());
 

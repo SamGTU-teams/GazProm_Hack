@@ -1,14 +1,14 @@
 package DataStreams.Generators;
 
 import Data.BankStatisticsInInterval;
-import DataStreams.AbstractDataStream;
+import DataStreams.DataStream;
 
 import java.time.Instant;
 import java.util.*;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 
-public class GenerateBanksStatistics extends AbstractDataStream<BankStatisticsInInterval> {
+public class GenerateBanksStatistics implements DataStream<BankStatisticsInInterval> {
 
     private static final Logger LOG = Logger.getLogger(GenerateBanksStatistics.class.getName());
 
@@ -22,7 +22,7 @@ public class GenerateBanksStatistics extends AbstractDataStream<BankStatisticsIn
     private Instant end;
 
     public GenerateBanksStatistics(Instant start, Instant end, int... id) {
-        super();
+        LOG.info("Init " + getClass().getSimpleName() + '\n');
         this.ids = id;
         this.start = start;
         this.end = end;

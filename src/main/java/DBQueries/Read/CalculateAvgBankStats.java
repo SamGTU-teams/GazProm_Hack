@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 
-public class CalculateAvgBankStats extends ConnectionToDB implements DataStream<BankStatisticsAvg> {
+public class CalculateAvgBankStats extends ReadProcessToDB<BankStatisticsAvg> {
 
     private static final Logger LOG = Logger.getLogger(CalculateAvgBankStats.class.getName());
 

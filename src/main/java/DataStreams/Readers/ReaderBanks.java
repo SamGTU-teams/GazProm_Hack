@@ -1,7 +1,7 @@
 package DataStreams.Readers;
 
 import Data.BankData;
-import DataStreams.AbstractDataStream;
+import DataStreams.DataStream;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 
-public class ReaderBanks extends AbstractDataStream<BankData> {
+public class ReaderBanks implements DataStream<BankData> {
 
     private static final Logger LOG = Logger.getLogger(ReaderBanks.class.getName());
 
@@ -22,7 +22,7 @@ public class ReaderBanks extends AbstractDataStream<BankData> {
     private String[] paths;
 
     public ReaderBanks(String... path) {
-        super();
+        LOG.info("Init " + getClass().getSimpleName() + '\n');
         this.paths = path;
     }
 
