@@ -3,115 +3,184 @@
   <ID>JAVA</ID>
   <OriginalElement />
   <nodes>
-    <node x="1277.75" y="171.0">DBQueries.ReadWrite.CalculateRating</node>
-    <node x="0.0" y="1258.0">InputStreams.Readers.ReaderBanks</node>
-    <node x="502.75" y="1031.0">InputStreams.StreamData</node>
-    <node x="918.75" y="171.0">DBQueries.ReadWrite.NarrateCashMachines</node>
-    <node x="2142.75" y="226.0">DBQueries.ReadWrite.CalculateAvgBankStats</node>
-    <node x="0.0" y="518.0">DBQueries.Write.PrepareUserData</node>
-    <node x="925.0" y="1214.0">InputStreams.Generators.GenerateBanksStatistics</node>
-    <node x="1118.0" y="595.0">DBQueries.Write.PrepareBankData</node>
-    <node x="1341.25" y="0.0">DBQueries.ConnectionToDB</node>
-    <node x="1730.75" y="259.0">DBQueries.Read.GetIntegers</node>
-    <node x="286.0" y="1203.0">InputStreams.Generators.GenerateUserData</node>
-    <node x="1403.0" y="1031.0">Launcher</node>
-    <node x="592.7499999999999" y="259.5">DBQueries.Write.PrepareProcess</node>
-    <node x="639.0" y="1280.0">InputStreams.Readers.ReaderBuildings</node>
-    <node x="746.0" y="606.0">DBQueries.Write.PrepareBankStatistics</node>
-    <node x="27.0" y="843.0">DBQueries.Write.PrepareUserData.ClearedData</node>
-    <node x="413.0" y="606.0">DBQueries.Write.PrepareBuilding</node>
+    <node x="413.0" y="668.0">DataStreams.Readers.ReaderBanks</node>
+    <node x="3598.0" y="646.5">DBQueries.Write.WriteBankAvgData</node>
+    <node x="1597.9376984126984" y="23.0">DataStreams.WriteProcess</node>
+    <node x="1000.1043650793649" y="344.0">DataStreams.AbstractDataStream</node>
+    <node x="451.0" y="978.0">Data.Building</node>
+    <node x="115.5" y="367.5">DataStreams.PrepareDataStream</node>
+    <node x="3619.75" y="0.0">DBQueries.ConnectionToDB</node>
+    <node x="3909.5" y="299.0">DBQueries.Read.CalculateAvgBankStats</node>
+    <node x="2940.0" y="646.5">DBQueries.Write.WriteBankData</node>
+    <node x="2262.0" y="646.5">DBQueries.Write.WriteBankStatistics</node>
+    <node x="1365.0" y="978.0">Data.UserData</node>
+    <node x="2410.0" y="978.0">Data.NarrateData</node>
+    <node x="3259.0" y="646.5">DBQueries.Write.WriteNarrateData</node>
+    <node x="0.0" y="1192.0">Data.BankStatisticsInInterval</node>
+    <node x="3422.5" y="255.0">DBQueries.Read.CalculateRatingBank</node>
+    <node x="1138.0" y="690.0">DataStreams.Readers.ReaderBuildings</node>
+    <node x="63.5" y="978.0">Data.BankStatistics</node>
+    <node x="3109.5" y="233.0">DBQueries.Read.NarrateBanks</node>
+    <node x="2026.0" y="978.0">Data.BankStatisticsAvg</node>
+    <node x="2621.0" y="646.5">DBQueries.Write.WriteBuilding</node>
+    <node x="0.0" y="679.5">DataStreams.PrepareData.PrepareUserData</node>
+    <node x="829.0" y="978.0">Data.BankData</node>
+    <node x="1943.0" y="613.5">DBQueries.Write.WriteUserData</node>
+    <node x="699.0" y="591.0">DataStreams.Generators.GenerateUserData</node>
+    <node x="1769.0" y="978.0">Data.Location</node>
+    <node x="4281.5" y="299.0">DBQueries.Read.GetIntegers</node>
+    <node x="1424.0" y="624.0">DataStreams.Generators.GenerateBanksStatistics</node>
+    <node x="1140.0" y="978.0">Launcher</node>
+    <node x="2770.5" y="300.0">DBQueries.Write.WriteProcessToDB</node>
+    <node x="3073.25" y="33.5">DataStreams.DataStream</node>
   </nodes>
   <notes />
   <edges>
-    <edge source="DBQueries.ReadWrite.CalculateAvgBankStats" target="DBQueries.ConnectionToDB">
-      <point x="0.0" y="-93.5" />
-      <point x="2318.75" y="141.0" />
-      <point x="1616.65" y="141.0" />
-      <point x="122.40000000000009" y="60.5" />
+    <edge source="DBQueries.Write.WriteBankStatistics" target="DBQueries.Write.WriteProcessToDB">
+      <point x="0.0" y="-115.5" />
+      <point x="2431.5" y="561.0" />
+      <point x="2850.25" y="561.0" />
+      <point x="-79.75" y="82.0" />
     </edge>
-    <edge source="DBQueries.Write.PrepareBuilding" target="DBQueries.Write.PrepareProcess">
-      <point x="0.0" y="-49.5" />
-      <point x="569.5" y="498.0" />
-      <point x="707.4999999999999" y="498.0" />
-      <point x="-38.25" y="60.0" />
+    <edge source="DBQueries.Read.CalculateRatingBank" target="DataStreams.DataStream">
+      <point x="-116.75" y="-127.0" />
+      <point x="3539.25" y="193.0" />
+      <point x="3226.55" y="193.0" />
+      <point x="43.80000000000018" y="38.0" />
     </edge>
-    <edge source="InputStreams.Generators.GenerateBanksStatistics" target="InputStreams.StreamData">
-      <point x="0.0" y="-127.0" />
-      <point x="1141.5" y="1173.0" />
-      <point x="694.375" y="1173.0" />
-      <point x="82.125" y="61.0" />
+    <edge source="DataStreams.Generators.GenerateUserData" target="DataStreams.AbstractDataStream">
+      <point x="0.0" y="-171.0" />
+      <point x="908.5" y="571.0" />
+      <point x="1069.854365079365" y="571.0" />
+      <point x="-23.25" y="38.0" />
     </edge>
-    <edge source="DBQueries.Write.PrepareBankData" target="DBQueries.Write.PrepareProcess">
-      <point x="0.0" y="-60.5" />
-      <point x="1274.5" y="488.0" />
-      <point x="860.4999999999999" y="488.0" />
-      <point x="114.75" y="60.0" />
+    <edge source="DBQueries.Write.WriteBankData" target="DBQueries.Write.WriteProcessToDB">
+      <point x="0.0" y="-115.5" />
+      <point x="3089.5" y="571.0" />
+      <point x="2956.5833333333335" y="571.0" />
+      <point x="26.583333333333485" y="82.0" />
     </edge>
-    <edge source="DBQueries.Write.PrepareProcess" target="DBQueries.ConnectionToDB">
-      <point x="0.0" y="-60.0" />
-      <point x="745.7499999999999" y="141.0" />
-      <point x="1371.85" y="141.0" />
-      <point x="-122.40000000000009" y="60.5" />
+    <edge source="DataStreams.Readers.ReaderBuildings" target="DataStreams.AbstractDataStream">
+      <point x="0.0" y="-72.0" />
+      <point x="1271.0" y="571.0" />
+      <point x="1116.354365079365" y="571.0" />
+      <point x="23.25" y="38.0" />
+    </edge>
+    <edge source="DataStreams.PrepareDataStream" target="DataStreams.DataStream">
+      <point x="40.5" y="-14.5" />
+      <point x="237.0" y="183.0" />
+      <point x="3095.15" y="183.0" />
+      <point x="-87.59999999999991" y="38.0" />
+    </edge>
+    <edge source="DBQueries.Read.CalculateAvgBankStats" target="DBQueries.ConnectionToDB">
+      <point x="88.0" y="-83.0" />
+      <point x="4173.5" y="173.0" />
+      <point x="3833.95" y="173.0" />
+      <point x="61.19999999999982" y="71.5" />
+    </edge>
+    <edge source="DBQueries.Write.WriteBankAvgData" target="DBQueries.Write.WriteProcessToDB">
+      <point x="0.0" y="-115.5" />
+      <point x="3757.5" y="551.0" />
+      <point x="3062.9166666666665" y="551.0" />
+      <point x="132.91666666666652" y="82.0" />
+    </edge>
+    <edge source="DBQueries.Read.CalculateRatingBank" target="DBQueries.ConnectionToDB">
+      <point x="116.75" y="-127.0" />
+      <point x="0.0" y="71.5" />
+    </edge>
+    <edge source="DBQueries.Write.WriteUserData" target="DBQueries.Write.WriteProcessToDB">
+      <point x="0.0" y="-148.5" />
+      <point x="2092.5" y="551.0" />
+      <point x="2797.0833333333335" y="551.0" />
+      <point x="-132.91666666666652" y="82.0" />
+    </edge>
+    <edge source="DBQueries.Write.WriteNarrateData" target="DBQueries.Write.WriteProcessToDB">
+      <point x="0.0" y="-115.5" />
+      <point x="3418.5" y="561.0" />
+      <point x="3009.75" y="561.0" />
+      <point x="79.75" y="82.0" />
+    </edge>
+    <edge source="DBQueries.Write.WriteProcessToDB" target="DataStreams.WriteProcess">
+      <point x="-79.75" y="-82.0" />
+      <point x="2850.25" y="173.0" />
+      <point x="1797.4376984126984" y="173.0" />
+      <point x="66.5" y="48.5" />
+    </edge>
+    <edge source="DataStreams.Readers.ReaderBanks" target="DataStreams.AbstractDataStream">
+      <point x="0.0" y="-94.0" />
+      <point x="546.0" y="561.0" />
+      <point x="1023.3543650793649" y="561.0" />
+      <point x="-69.75" y="38.0" />
+    </edge>
+    <edge source="DBQueries.Read.NarrateBanks" target="DataStreams.DataStream">
+      <point x="-73.25" y="-149.0" />
+      <point x="0.0" y="38.0" />
+    </edge>
+    <edge source="DataStreams.AbstractDataStream" target="DataStreams.DataStream">
+      <point x="0.0" y="-38.0" />
+      <point x="1093.104365079365" y="193.0" />
+      <point x="3138.95" y="193.0" />
+      <point x="-43.80000000000018" y="38.0" />
+    </edge>
+    <edge source="DBQueries.Write.WriteProcessToDB" target="DBQueries.ConnectionToDB">
+      <point x="79.75" y="-82.0" />
+      <point x="3009.75" y="203.0" />
+      <point x="3650.35" y="203.0" />
+      <point x="-122.40000000000009" y="71.5" />
     </edge>
     <edge source="DBQueries.Read.GetIntegers" target="DBQueries.ConnectionToDB">
-      <point x="0.0" y="-60.5" />
-      <point x="1926.75" y="151.0" />
-      <point x="1555.45" y="151.0" />
-      <point x="61.200000000000045" y="60.5" />
-    </edge>
-    <edge source="InputStreams.Readers.ReaderBuildings" target="InputStreams.StreamData">
-      <point x="0.0" y="-61.0" />
-      <point x="772.0" y="1183.0" />
-      <point x="639.625" y="1183.0" />
-      <point x="27.375" y="61.0" />
-    </edge>
-    <edge source="InputStreams.Readers.ReaderBanks" target="InputStreams.StreamData">
       <point x="0.0" y="-83.0" />
-      <point x="133.0" y="1173.0" />
-      <point x="530.125" y="1173.0" />
-      <point x="-82.125" y="61.0" />
+      <point x="4477.5" y="163.0" />
+      <point x="3895.15" y="163.0" />
+      <point x="122.40000000000009" y="71.5" />
     </edge>
-    <edge source="InputStreams.Generators.GenerateUserData" target="InputStreams.StreamData">
+    <edge source="DBQueries.Read.NarrateBanks" target="DBQueries.ConnectionToDB">
+      <point x="73.25" y="-149.0" />
+      <point x="3329.25" y="213.0" />
+      <point x="3711.55" y="213.0" />
+      <point x="-61.19999999999982" y="71.5" />
+    </edge>
+    <edge source="Data.BankStatisticsInInterval" target="Data.BankStatistics">
+      <point x="0.0" y="-49.0" />
+      <point x="0.0" y="82.0" />
+    </edge>
+    <edge source="DataStreams.PrepareData.PrepareUserData" target="DataStreams.PrepareDataStream">
+      <point x="0.0" y="-82.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="DataStreams.PrepareDataStream" target="DataStreams.WriteProcess">
+      <point x="-40.5" y="-14.5" />
+      <point x="156.0" y="173.0" />
+      <point x="1664.4376984126984" y="173.0" />
+      <point x="-66.5" y="48.5" />
+    </edge>
+    <edge source="DataStreams.Generators.GenerateBanksStatistics" target="DataStreams.AbstractDataStream">
       <point x="0.0" y="-138.0" />
-      <point x="452.5" y="1183.0" />
-      <point x="584.875" y="1183.0" />
-      <point x="-27.375" y="61.0" />
+      <point x="1673.5" y="561.0" />
+      <point x="1162.854365079365" y="561.0" />
+      <point x="69.75" y="38.0" />
     </edge>
-    <edge source="DBQueries.Write.PrepareUserData" target="DBQueries.Write.PrepareProcess">
-      <point x="0.0" y="-137.5" />
-      <point x="196.5" y="488.0" />
-      <point x="630.9999999999999" y="488.0" />
-      <point x="-114.75" y="60.0" />
+    <edge source="DBQueries.Read.CalculateAvgBankStats" target="DataStreams.DataStream">
+      <point x="-88.0" y="-83.0" />
+      <point x="3997.5" y="183.0" />
+      <point x="3270.35" y="183.0" />
+      <point x="87.59999999999991" y="38.0" />
     </edge>
-    <edge source="DBQueries.ReadWrite.NarrateCashMachines" target="DBQueries.ConnectionToDB">
-      <point x="0.0" y="-148.5" />
-      <point x="1088.25" y="151.0" />
-      <point x="1433.05" y="151.0" />
-      <point x="-61.200000000000045" y="60.5" />
-    </edge>
-    <edge source="DBQueries.Write.PrepareBankStatistics" target="DBQueries.Write.PrepareProcess">
-      <point x="-1.1368683772161603E-13" y="-49.5" />
-      <point x="921.9999999999999" y="498.0" />
-      <point x="783.9999999999999" y="498.0" />
-      <point x="38.25" y="60.0" />
-    </edge>
-    <edge source="DBQueries.ReadWrite.CalculateRating" target="DBQueries.ConnectionToDB">
-      <point x="0.0" y="-148.5" />
-      <point x="0.0" y="60.5" />
-    </edge>
-    <edge source="DBQueries.Write.PrepareUserData.ClearedData" target="DBQueries.Write.PrepareUserData">
-      <point x="0.0" y="-71.5" />
-      <point x="0.0" y="137.5" />
+    <edge source="DBQueries.Write.WriteBuilding" target="DBQueries.Write.WriteProcessToDB">
+      <point x="0.0" y="-115.5" />
+      <point x="2770.5" y="571.0" />
+      <point x="2903.4166666666665" y="571.0" />
+      <point x="-26.583333333333485" y="82.0" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="0.3506958250497018" x="1247.5" y="739.5" />
+  <settings layout="Hierarchic Group" zoom="0.5457179377929271" x="2337.0" y="645.0" />
   <SelectedNodes />
   <Categories>
     <Category>Fields</Category>
     <Category>Constructors</Category>
     <Category>Methods</Category>
-    <Category>Inner Classes</Category>
     <Category>Properties</Category>
+    <Category>Inner Classes</Category>
   </Categories>
   <SCOPE>All</SCOPE>
   <VISIBILITY>private</VISIBILITY>

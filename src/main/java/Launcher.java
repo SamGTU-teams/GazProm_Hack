@@ -1,14 +1,18 @@
-import Data.*;
-import InputStreams.Generators.*;
-import InputStreams.StreamData;
-import DBQueries.Write.*;
-import DBQueries.ReadWrite.*;
+import DBQueries.Read.CalculateAvgBankStats;
+import DBQueries.Read.CalculateRatingBank;
 import DBQueries.Read.GetIntegers;
-import InputStreams.Readers.*;
+import DBQueries.Read.NarrateBanks;
+import Data.*;
+import DataStreams.DataStream;
+import DBQueries.Write.*;
+import DataStreams.Generators.GenerateBanksStatistics;
+import DataStreams.Generators.GenerateUserData;
+import DataStreams.PrepareData.PrepareUserData;
+import DataStreams.PrepareDataStream;
+import DataStreams.Readers.*;
+import DataStreams.WriteProcess;
 
 import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -35,42 +39,52 @@ public class Launcher {
 
         GetIntegers select = new GetIntegers(URL_DB, USERNAME, PASSWORD, "id", "banks");
 
-        StreamData<UserData> users = new GenerateUserData(startTime, endTime, 1);
+        DataStream<UserData> rawUsers = new GenerateUserData(startTime, endTime, 1);
 
-        StreamData<BankStatistics> statistics = new GenerateBanksStatistics(startTime, endTime, select.getArray());
+        PrepareDataStream<UserData> users = new PrepareUserData();
 
-        StreamData<BankData> banks = new ReaderBanks(URL_BANKS);
+//        DataStream<BankStatisticsInInterval> statistics = new CalculateRatingBank(URL_DB, USERNAME, PASSWORD);
 
-        StreamData<Building> buildings = new ReaderBuildings(filesList());
+        DataStream<BankStatisticsInInterval> statistics = new GenerateBanksStatistics(startTime, endTime, select.getArray());
 
-        PrepareProcess<BankData> bankData = new PrepareBankData(URL_DB, USERNAME, PASSWORD);
+        DataStream<BankData> banks = new ReaderBanks(URL_BANKS);
 
-        PrepareProcess<UserData> userData = new PrepareUserData(URL_DB, USERNAME, PASSWORD);
+        DataStream<Building> buildings = new ReaderBuildings(filesList());
 
-        PrepareProcess<Building> buildingData = new PrepareBuilding(URL_DB, USERNAME, PASSWORD);
+        WriteProcess<BankData> banksWrite = new WriteBankData(URL_DB, USERNAME, PASSWORD);
 
-        PrepareProcess<BankStatistics> bankStatistics = new PrepareBankStatistics(URL_DB, USERNAME, PASSWORD);
+        WriteProcess<UserData> usersWrite = new WriteUserData(URL_DB, USERNAME, PASSWORD);
 
-        CalculateRating rateData = new CalculateRating(URL_DB, USERNAME, PASSWORD);
+        WriteProcess<Building> buildingsWrite = new WriteBuilding(URL_DB, USERNAME, PASSWORD);
 
-        CalculateAvgBankStats avgData = new CalculateAvgBankStats(URL_DB, USERNAME, PASSWORD);
+        WriteProcess<BankStatisticsInInterval> bankStatistics = new WriteBankStatistics(URL_DB, USERNAME, PASSWORD);
 
-        NarrateCashMachines narrateCashMachines = new NarrateCashMachines(URL_DB, USERNAME, PASSWORD);
+        DataStream<BankStatisticsAvg> avgData = new CalculateAvgBankStats(URL_DB, USERNAME, PASSWORD);
+
+        DataStream<NarrateData> narrateBanks = new NarrateBanks(URL_DB, USERNAME, PASSWORD);
+
+        WriteProcess<BankStatisticsAvg> avgWrite = new WriteBankAvgData(URL_DB, USERNAME, PASSWORD);
+
+        WriteProcess<NarrateData> narrateWrite = new WriteNarrateData(URL_DB, USERNAME, PASSWORD);
 
 
-        userData.addAllData(users);
 
-        bankData.addAllData(banks);
 
-        buildingData.addAllData(buildings);
+        users.addAllData(rawUsers);
+
+        usersWrite.addAllData(users);
+
+        banksWrite.addAllData(banks);
+
+        buildingsWrite.addAllData(buildings);
 
         bankStatistics.addAllData(statistics);
 
-        rateData.updateData();
+        avgWrite.addAllData(avgData);
 
-        avgData.calculateAvgBanksStats();
+        narrateWrite.addAllData(narrateBanks);
 
-        narrateCashMachines.narrateCashMachines();
+
 
 
         LOG.info("Completed successfully");

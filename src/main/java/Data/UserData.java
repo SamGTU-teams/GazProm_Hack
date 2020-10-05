@@ -7,15 +7,17 @@ public class UserData {
 
     private static final Logger LOG = Logger.getLogger(UserData.class.getName());
 
-    public int userId;
+    public int id;
     public Instant time;
     public double lat;
     public double lon;
+    public double distance;
 
-    public UserData(int userId, Instant time, double lat, double lon) {
-        this.userId = userId;
+    public UserData(int userId, Instant time, double lat, double lon, double distance) {
+        this.id = userId;
         this.time = time;
         this.lat = lat;
         this.lon = lon;
+        this.distance = distance;
     }
 }

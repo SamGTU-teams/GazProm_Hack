@@ -1,8 +1,8 @@
-package InputStreams.Readers;
+package DataStreams.Readers;
 
 import Data.Building;
 import Data.Location;
-import InputStreams.StreamData;
+import DataStreams.AbstractDataStream;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 
-public class ReaderBuildings extends StreamData<Building> {
+public class ReaderBuildings extends AbstractDataStream<Building> {
 
     private static final Logger LOG = Logger.getLogger(ReaderBuildings.class.getName());
 
@@ -29,7 +29,7 @@ public class ReaderBuildings extends StreamData<Building> {
     }
 
     @Override
-    protected Stream<Building> generateStream() {
+    public Stream<Building> generateStream() {
         return getList().stream();
     }
 

@@ -1,14 +1,14 @@
-package InputStreams.Generators;
+package DataStreams.Generators;
 
-import Data.BankStatistics;
-import InputStreams.StreamData;
+import Data.BankStatisticsInInterval;
+import DataStreams.AbstractDataStream;
 
 import java.time.Instant;
 import java.util.*;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 
-public class GenerateBanksStatistics extends StreamData<BankStatistics> {
+public class GenerateBanksStatistics extends AbstractDataStream<BankStatisticsInInterval> {
 
     private static final Logger LOG = Logger.getLogger(GenerateBanksStatistics.class.getName());
 
@@ -29,12 +29,12 @@ public class GenerateBanksStatistics extends StreamData<BankStatistics> {
     }
 
     @Override
-    protected Stream<BankStatistics> generateStream() {
+    public Stream<BankStatisticsInInterval> generateStream() {
         return getList().stream();
     }
 
-    public List<BankStatistics> getList() {
-        List<BankStatistics> list = new LinkedList<>();
+    public List<BankStatisticsInInterval> getList() {
+        List<BankStatisticsInInterval> list = new LinkedList<>();
 
         for (int i = 0; i < ids.length; i++) {
             Instant last = start;
@@ -47,7 +47,7 @@ public class GenerateBanksStatistics extends StreamData<BankStatistics> {
         return list;
     }
 
-    private BankStatistics generateIntervalData(int index, final Instant start, final Instant end) {
+    private BankStatisticsInInterval generateIntervalData(int index, final Instant start, final Instant end) {
         Map<Instant, Integer> timeMap = new HashMap<>();
         Instant cur = start;
         while (cur.isBefore(end)) {
@@ -57,6 +57,6 @@ public class GenerateBanksStatistics extends StreamData<BankStatistics> {
         int countUsers = timeMap.values().stream().mapToInt(t -> t).sum();
         int minUsers = timeMap.values().stream().min(Integer::compareTo).orElse(0),
                 maxUsers = timeMap.values().stream().max(Integer::compareTo).orElse(0);
-        return new BankStatistics(ids[index], end, countUsers, minUsers, maxUsers);
+        return new BankStatisticsInInterval(ids[index], end, countUsers, minUsers, maxUsers);
     }
 }

@@ -1,9 +1,8 @@
-package InputStreams.Generators;
+package DataStreams.Generators;
 
 import Data.Location;
 import Data.UserData;
-import InputStreams.Readers.ReaderBanks;
-import InputStreams.StreamData;
+import DataStreams.AbstractDataStream;
 
 import java.time.Instant;
 import java.util.Arrays;
@@ -12,13 +11,14 @@ import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 
-public class GenerateUserData extends StreamData<UserData> {
+public class GenerateUserData extends AbstractDataStream<UserData> {
 
     private static final Logger LOG = Logger.getLogger(GenerateUserData.class.getName());
 
     public static Location MAX = new Location(57.2, 41);
     public static Location MIN = new Location(54.6, 35);
     public static int secondsInMinute = 60;
+    public static final int EARTH_RADIUS = 6372795;
 
     private int[] ids;
     private Instant start;
@@ -36,7 +36,7 @@ public class GenerateUserData extends StreamData<UserData> {
     }
 
     @Override
-    protected Stream<UserData> generateStream() {
+    public Stream<UserData> generateStream() {
         return getList().stream();
     }
 
@@ -60,15 +60,30 @@ public class GenerateUserData extends StreamData<UserData> {
             i++;
             double lon = (Math.random() * (MAX.getLon() - MIN.getLon())) + MIN.getLon();
             double lat = (Math.random() * (MAX.getLat() - MIN.getLat())) + MIN.getLat();
-            last[index] = new UserData(ids[index], time, lat, lon);
+            last[index] = new UserData(ids[index], time, lat, lon, 0);
             list.add(last[index]);
         }
         for (; i < secondsInMinute; i++) {
             double dLon = Math.random() > 0.5 ? -0.00001 : 0.00001;
             double dLat = Math.random() > 0.5 ? -0.00001 : 0.00001;
-            last[index] = new UserData(index, time, last[index].lat + dLat, last[index].lon + dLon);
+            double nLat = last[index].lat + dLat;
+            double nLon = last[index].lon + dLon;
+            double distance = calculateDistance(last[index].lat, nLat, last[index].lon, nLon);
+            last[index] = new UserData(index, time, nLat, nLon, distance);
             list.add(last[index]);
         }
         return list;
+    }
+
+    private double calculateDistance(double lat1, double lat2, double lon1, double lon2){
+            double difLat = Math.toRadians(lat2 - lat1);
+            double difLon = Math.toRadians(lon2 - lon1);
+
+            double result = Math.pow(Math.sin(difLon / 2), 2);
+            result *= Math.cos(Math.toRadians(lat1));
+            result *= Math.cos(Math.toRadians(lat2));
+            result += Math.pow(Math.sin(difLat / 2), 2);
+            result = 2 * Math.atan2(Math.sqrt(result), Math.sqrt(1 - result));
+            return result * EARTH_RADIUS;
     }
 }

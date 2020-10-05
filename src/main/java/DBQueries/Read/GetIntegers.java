@@ -19,6 +19,11 @@ public class GetIntegers extends ConnectionToDB {
         select = String.format(select, col, table);
     }
 
+    @Override
+    protected Logger log() {
+        return LOG;
+    }
+
     public List<Integer> getList() {
         List<Integer> list = new LinkedList<>();
         try (Statement statement = connection.createStatement()) {

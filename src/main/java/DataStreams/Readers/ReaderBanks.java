@@ -1,8 +1,7 @@
-package InputStreams.Readers;
+package DataStreams.Readers;
 
-import DBQueries.Read.GetIntegers;
 import Data.BankData;
-import InputStreams.StreamData;
+import DataStreams.AbstractDataStream;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -13,7 +12,7 @@ import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 
-public class ReaderBanks extends StreamData<BankData> {
+public class ReaderBanks extends AbstractDataStream<BankData> {
 
     private static final Logger LOG = Logger.getLogger(ReaderBanks.class.getName());
 
@@ -28,7 +27,7 @@ public class ReaderBanks extends StreamData<BankData> {
     }
 
     @Override
-    protected Stream<BankData> generateStream() {
+    public Stream<BankData> generateStream() {
         return getList().stream();
     }
 

@@ -20,6 +20,8 @@ public abstract class ConnectionToDB implements AutoCloseable {
         }
     }
 
+    protected abstract Logger log();
+
     @Override
     public void close() throws Exception {
         connection.close();
